@@ -1,0 +1,21 @@
+#ifndef HARDWAREPROFILE_H_INCLUDED
+#define HARDWAREPROFILE_H_INCLUDED
+
+#include <xc.h>
+#define LED_RUN_TRIS TRISAbits.TRISA10
+#define LED_RUN LATAbits.LATA10
+#define RELE1_TRIS TRISGbits.TRISG7
+#define RELE1 LATGbits.LATG7
+#define RELE2_TRIS TRISGbits.TRISG6
+#define RELE2 LATGbits.LATG6
+#define RELE3_TRIS TRISDbits.TRISD5
+#define RELE3 LATDbits.LATD5
+#define IN1_TRIS TRISBbits.TRISB9
+#define IN1 PORTBbits.RB9
+#define IN2_TRIS TRISBbits.TRISB8
+#define IN2 PORTBbits.RB8
+#define IN3_TRIS TRISCbits.TRISC13
+#define IN3 PORTCbits.RC13
+
+#endif
+

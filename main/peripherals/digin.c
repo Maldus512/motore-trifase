@@ -7,25 +7,26 @@
 
 #include "peripherals/digin.h"
 #include "peripherals/hardwareprofile.h"
+#include "gel/debounce/debounce.h"
+
+static debounce_filter_t filter;
 
 void digin_init() {
     IN1_TRIS=1;
     IN2_TRIS=1;
     IN3_TRIS=1;
+    
+    debounce_filter_init(&filter);
 }
 
 int digin_get(digin_t digin) {
-    switch (digin) {
-        case DIGIN_IN1:
-            return IN1;
-            break;
-        case DIGIN_IN2:
-            return IN2;
-            break;
-        case DIGIN_IN3:
-            return IN3;
-            break;
-    }
-    return 0;
+   return debounce_read(&filter, digin);
 }
 
+void digin_take_reading() {
+    unsigned int input=0;
+    input|=!IN1;
+    input|=(!IN2)<<1;
+    input|=(!IN3)<<2;
+    debounce_filter(&filter, input, 10);
+}

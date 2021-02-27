@@ -14,6 +14,11 @@
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>main</sourceRootElem>
+                <sourceRootElem>components/generic_embedded_libs/gel/debounce</sourceRootElem>
+                <sourceRootElem>components/I2C/i2c_ports/PIC</sourceRootElem>
+                <sourceRootElem>components/I2C/i2c_common</sourceRootElem>
+                <sourceRootElem>components/I2C/i2c_devices/eeprom</sourceRootElem>
+                <sourceRootElem>components/generic_embedded_libs/gel/keypad</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

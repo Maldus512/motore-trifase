@@ -50,7 +50,7 @@ int main(void) {
         digout_set(DIGOUT_RELE1, digin_get(DIGIN_IN1));
         digout_set(DIGOUT_RELE2, digin_get(DIGIN_IN2));
         digout_set(DIGOUT_RELE3, digin_get(DIGIN_IN3));
-        if (is_expired(ts,get_millis(), 1000)) {
+        if (is_expired(ts,get_millis(), fan ? 200 : 1000)) {
             LED_RUN=blink;
             blink=!blink;
             ts=get_millis();

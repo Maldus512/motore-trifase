@@ -60,6 +60,7 @@
           <itemPath>main/i2c_devices.c</itemPath>
           <itemPath>main/leds.c</itemPath>
           <itemPath>main/peripherals/buttons.c</itemPath>
+          <itemPath>main/peripherals/traps.c</itemPath>
         </logicalFolder>
         <itemPath>main/main.c</itemPath>
       </logicalFolder>
@@ -280,6 +281,7 @@
         <property key="UART 1" value="true"/>
         <property key="UART 2" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

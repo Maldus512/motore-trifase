@@ -30,7 +30,7 @@ keypad_update_t button_manage(unsigned long ts) {
     input|=(!BUTTON2_PORT)<<1;
     input|=(!BUTTON3_PORT)<<2;
     input|=(!BUTTON4_PORT)<<3;
-    debounce_filter(&filter, input, 3);
+    debounce_filter(&filter, input, 5);
     
     unsigned int keymap = debounce_value(&filter);
     return keypad_routine(keyboard, 40, 1500, 100, ts, keymap);

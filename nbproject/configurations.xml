@@ -8,6 +8,9 @@
         <logicalFolder name="config" displayName="config" projectFiles="true">
           <itemPath>main/config/gel_conf.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="model" displayName="model" projectFiles="true">
+          <itemPath>main/model/model.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="peripherals" projectFiles="true">
           <itemPath>main/peripherals/hardwareprofile.h</itemPath>
           <itemPath>main/peripherals/system.h</itemPath>
@@ -17,6 +20,12 @@
           <itemPath>main/peripherals/i2c_devices.h</itemPath>
           <itemPath>main/peripherals/leds.h</itemPath>
           <itemPath>main/peripherals/buttons.h</itemPath>
+          <itemPath>main/peripherals/uart_driver.h</itemPath>
+          <itemPath>main/adc.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="view" displayName="view" projectFiles="true">
+          <itemPath>main/view/view.h</itemPath>
+          <itemPath>main/view_types.h</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -35,6 +44,10 @@
           </logicalFolder>
           <logicalFolder name="keypad" displayName="keypad" projectFiles="true">
             <itemPath>components/generic_embedded_libs/gel/keypad/keypad.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="pagemanager" displayName="pagemanager" projectFiles="true">
+            <itemPath>components/generic_embedded_libs/gel/pagemanager/page_manager.c</itemPath>
+            <itemPath>components/generic_embedded_libs/gel/pagemanager/page_manager.h</itemPath>
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="f2" displayName="i2c" projectFiles="true">
@@ -61,6 +74,14 @@
           <itemPath>main/leds.c</itemPath>
           <itemPath>main/peripherals/buttons.c</itemPath>
           <itemPath>main/peripherals/traps.c</itemPath>
+          <itemPath>main/peripherals/uart_driver.c</itemPath>
+          <itemPath>main/adc.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="view" displayName="view" projectFiles="true">
+          <logicalFolder name="pages" displayName="pages" projectFiles="true">
+            <itemPath>main/view/pages/page_main.c</itemPath>
+          </logicalFolder>
+          <itemPath>main/view/view.c</itemPath>
         </logicalFolder>
         <itemPath>main/main.c</itemPath>
       </logicalFolder>
@@ -78,6 +99,7 @@
     <Elem>components/I2C/i2c_common</Elem>
     <Elem>components/I2C/i2c_devices/eeprom</Elem>
     <Elem>components/generic_embedded_libs/gel/keypad</Elem>
+    <Elem>components/generic_embedded_libs/gel/pagemanager</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -138,7 +160,7 @@
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="extra-include-directories"
-                  value="main;components\generic_embedded_libs;components\I2C;main\peripherals"/>
+                  value="main;components\generic_embedded_libs;components\I2C;main\peripherals;main\config"/>
         <property key="isolate-each-function" value="false"/>
         <property key="keep-inline" value="false"/>
         <property key="oXC16gcc-align-arr" value="false"/>
@@ -281,7 +303,6 @@
         <property key="UART 1" value="true"/>
         <property key="UART 2" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="true"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

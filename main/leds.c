@@ -27,5 +27,8 @@ void leds_set(led_t led, int val) {
         case LED_5 :
             LED5=val;
             break;
+            
+        default:
+            break;
     }
 }

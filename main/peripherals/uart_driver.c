@@ -13,14 +13,18 @@
 
 
 #define UART_BUFFER_SIZE 512
+#define UART_BUFFER_RX 300
 //#define UART_TIMEOUT     100
 #define UART_TIMEOUT     50
 
-static uint8_t       uart_rx_buffer[UART_BUFFER_SIZE];
 static uint8_t       uart_tx_buffer[UART_BUFFER_SIZE];
-volatile static int f_tx_on  = 0;
+volatile static int  f_tx_on  = 0;
 volatile static int  len_tx   = 0;
 volatile static int  index_tx = 0;
+
+static uint8_t       uart_rx_buffer[UART_BUFFER_RX];
+volatile static int  index_rx = 0;
+static unsigned long ts=0;
 
 #define BAUDRATE    115200
 #define BAUDRATEREG FOSC / 8 / BAUDRATE - 1
@@ -89,7 +93,7 @@ void init_uart() {
     
 }
 
-int uart_blocking_write(uint8_t *data, int len) {
+int uart_sync_write(uint8_t *data, int len) {
     int i = 0;
     
     IEC0bits.U1TXIE = 0;
@@ -98,9 +102,19 @@ int uart_blocking_write(uint8_t *data, int len) {
         if (!U1STAbits.UTXBF)
             U1TXREG = data[i++];
     }
+    while (!U1STAbits.TRMT);
     DIR_LAT=0;
     IEC0bits.U1TXIE = 1;
     return len;
+}
+
+int uart_read_rx_buffer(uint8_t *buffer) {
+    memcpy(buffer, uart_rx_buffer, index_rx);
+    return index_rx;
+}
+
+void uart_clean_rx_buffer() {
+    index_rx=0;
 }
 
 int uart_async_write(uint8_t *data, int len) {
@@ -132,18 +146,17 @@ void __attribute((interrupt, no_auto_psv)) _U1ErrInterrupt(void)
 /*----------------------------------------------------------------------------*/
 void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void)
 {
-   
-    IFS0bits.U1RXIF = 0;
-    uint8_t data=U1RXREG;
+    if (is_expired(ts, get_millis(), 200)) {
+        index_rx=0;
+        ts=0;
+    }
+    if (index_rx<UART_BUFFER_RX) {
+        ts=get_millis();
+        // DIR_LAT=0;
+        uart_rx_buffer[index_rx++]=U1RXREG;
+    }
     
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-   
+    IFS0bits.U1RXIF = 0;
    
 }
 

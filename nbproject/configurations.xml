@@ -4,9 +4,37 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f2" displayName="components" projectFiles="true">
+        <logicalFolder name="liblightmodbus"
+                       displayName="liblightmodbus"
+                       projectFiles="true">
+          <logicalFolder name="include" displayName="include" projectFiles="true">
+            <logicalFolder name="lightmodbus" displayName="lightmodbus" projectFiles="true">
+              <logicalFolder name="addons" displayName="addons" projectFiles="true">
+                <itemPath>components/liblightmodbus/include/lightmodbus/addons/examine.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="master" displayName="master" projectFiles="true">
+                <itemPath>components/liblightmodbus/include/lightmodbus/master/mbcoils.h</itemPath>
+                <itemPath>components/liblightmodbus/include/lightmodbus/master/mbregs.h</itemPath>
+                <itemPath>components/liblightmodbus/include/lightmodbus/master/mpcoils.h</itemPath>
+                <itemPath>components/liblightmodbus/include/lightmodbus/master/mpregs.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="slave" displayName="slave" projectFiles="true">
+                <itemPath>components/liblightmodbus/include/lightmodbus/slave/scoils.h</itemPath>
+                <itemPath>components/liblightmodbus/include/lightmodbus/slave/sregs.h</itemPath>
+              </logicalFolder>
+              <itemPath>components/liblightmodbus/include/lightmodbus/lightmodbus.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/master.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/parser.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/slave.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="Main" projectFiles="true">
         <logicalFolder name="config" displayName="config" projectFiles="true">
           <itemPath>main/config/gel_conf.h</itemPath>
+          <itemPath>main/config/libconf.h</itemPath>
         </logicalFolder>
         <logicalFolder name="model" displayName="model" projectFiles="true">
           <itemPath>main/model/model.h</itemPath>
@@ -62,6 +90,28 @@
             <itemPath>components/I2C/i2c_ports/PIC/i2c_driver.c</itemPath>
           </logicalFolder>
         </logicalFolder>
+        <logicalFolder name="liblightmodbus"
+                       displayName="liblightmodbus"
+                       projectFiles="true">
+          <logicalFolder name="src" displayName="src" projectFiles="true">
+            <logicalFolder name="addons" displayName="addons" projectFiles="true">
+              <itemPath>components/liblightmodbus/src/addons/examine.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="master" displayName="master" projectFiles="true">
+              <itemPath>components/liblightmodbus/src/master/mbcoils.c</itemPath>
+              <itemPath>components/liblightmodbus/src/master/mbregs.c</itemPath>
+              <itemPath>components/liblightmodbus/src/master/mpcoils.c</itemPath>
+              <itemPath>components/liblightmodbus/src/master/mpregs.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="slave" displayName="slave" projectFiles="true">
+              <itemPath>components/liblightmodbus/src/slave/scoils.c</itemPath>
+              <itemPath>components/liblightmodbus/src/slave/sregs.c</itemPath>
+            </logicalFolder>
+            <itemPath>components/liblightmodbus/src/lightmodbus.c</itemPath>
+            <itemPath>components/liblightmodbus/src/master.c</itemPath>
+            <itemPath>components/liblightmodbus/src/slave.c</itemPath>
+          </logicalFolder>
+        </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Main" projectFiles="true">
         <logicalFolder name="f1" displayName="Peripherals" projectFiles="true">
@@ -100,6 +150,7 @@
     <Elem>components/I2C/i2c_devices/eeprom</Elem>
     <Elem>components/generic_embedded_libs/gel/keypad</Elem>
     <Elem>components/generic_embedded_libs/gel/pagemanager</Elem>
+    <Elem>components/liblightmodbus</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -160,7 +211,7 @@
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="extra-include-directories"
-                  value="main;components\generic_embedded_libs;components\I2C;main\peripherals;main\config"/>
+                  value="main;components\generic_embedded_libs;components\I2C;main\peripherals;main\config;components\liblightmodbus\include;main\config\mbconf"/>
         <property key="isolate-each-function" value="false"/>
         <property key="keep-inline" value="false"/>
         <property key="oXC16gcc-align-arr" value="false"/>

@@ -27,6 +27,10 @@
 #include "view/view.h"
 #include <stdio.h>
 #include <string.h>
+#include "lightmodbus/lightmodbus.h"
+#include "lightmodbus/slave.h"
+
+
 
 
 void update_gui(view_t view) {
@@ -66,11 +70,18 @@ int main(void) {
     unsigned long ts=0;
     unsigned long tskp=0;
     unsigned long tsin=0;
+    unsigned long ts_rx=0;
     int blink=0;
     system_init();
     Init_I2C();
     timer_init();
     LED_RUN_TRIS=0;
+    ModbusSlave slave={0};
+    uint8_t coils[1] = {0};
+    slave.coils=coils;
+    slave.coilCount=8;
+    slave.address=2;
+    modbusSlaveInit(&slave);
 
     digout_init();
     digin_init();
@@ -91,11 +102,23 @@ int main(void) {
         if (is_expired(ts,get_millis(), 1000)) {
             LED_RUN=blink;
             blink=!blink;
-            char string[32]={0};
-            unsigned int valore=read_adc_input(ADC_CHANNEL);
-            sprintf(string, "%i valore: %i\n\r", count++, valore);
-            uart_async_write(string, strlen(string)+2);
-            ts=get_millis();
+//            char string[32]={0};
+//            unsigned int valore=read_adc_input(ADC_CHANNEL);
+//            sprintf(string, "%i valore: %i\n\r", count++, valore);
+//            uart_async_write(string, strlen(string)+2);
+           ts=get_millis();
+        }
+        if (is_expired(ts_rx,get_millis(), 10))  {
+           uint8_t buffer[300];
+           int len = uart_read_rx_buffer(buffer); 
+           slave.request.frame=buffer;
+           slave.request.length=len;
+           ModbusError err = modbusParseRequest(&slave);
+           if (err==MODBUS_OK || err==MODBUS_ERROR_EXCEPTION) {
+               uart_sync_write(slave.response.frame, slave.response.length);
+               uart_clean_rx_buffer();
+           }
+           ts_rx=get_millis();
         }
          if (is_expired(tsin,get_millis(), 2)) {
             tsin=get_millis();

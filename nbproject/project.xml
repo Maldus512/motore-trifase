@@ -20,6 +20,7 @@
                 <sourceRootElem>components/I2C/i2c_devices/eeprom</sourceRootElem>
                 <sourceRootElem>components/generic_embedded_libs/gel/keypad</sourceRootElem>
                 <sourceRootElem>components/generic_embedded_libs/gel/pagemanager</sourceRootElem>
+                <sourceRootElem>components/liblightmodbus</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

@@ -9,6 +9,8 @@
 #include "hardwareprofile.h"
 #include "timer.h"
 
+#define TRIAC_HOLD_US 500
+
 
 //interrupt sfasato di 2.8 ms circa
 static int speeds[5]={58,55,50,38,0};
@@ -47,7 +49,7 @@ void turn_off_triac1(void) {
 
 void turn_on_triac1(void) {
     PWM1_LAT = 1;
-    timer_register_cb(200, turn_off_triac1);
+    timer_register_cb(TRIAC_HOLD_US, turn_off_triac1);
 }
 
 void turn_off_triac2(void) {
@@ -56,7 +58,7 @@ void turn_off_triac2(void) {
 
 void turn_on_triac2(void) {
     PWM2_LAT = 1;
-    timer_register_cb(200, turn_off_triac2);
+    timer_register_cb(TRIAC_HOLD_US, turn_off_triac2);
 }
 
 void turn_off_triac3(void) {
@@ -65,7 +67,7 @@ void turn_off_triac3(void) {
 
 void turn_on_triac3(void) {
     PWM3_LAT = 1;
-    timer_register_cb(200, turn_off_triac3);
+    timer_register_cb(TRIAC_HOLD_US, turn_off_triac3);
 }
 
 void phasecut_set(int value) {

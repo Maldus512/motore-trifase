@@ -33,5 +33,5 @@ keypad_update_t button_manage(unsigned long ts) {
     debounce_filter(&filter, input, 5);
     
     unsigned int keymap = debounce_value(&filter);
-    return keypad_routine(keyboard, 40, 1500, 100, ts, keymap);
+    return keypad_routine(keyboard, 30, 1500, 100, ts, keymap);
 }

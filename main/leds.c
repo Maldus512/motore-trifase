@@ -10,6 +10,7 @@ void leds_init() {
 }
 
 void leds_set(led_t led, int val) {
+    val = val > 0;
     switch(led) {
         case LED_1 :
             LED1=val;
@@ -25,6 +26,9 @@ void leds_set(led_t led, int val) {
             break;
         case LED_5 :
             LED5=val;
+            break;
+            
+        default:
             break;
     }
 }

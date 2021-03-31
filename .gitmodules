@@ -4,3 +4,6 @@
 [submodule "components/I2C"]
 	path = components/I2C
 	url = https://github.com/Maldus512/I2C.git
+[submodule "components/liblightmodbus"]
+	path = components/liblightmodbus
+	url = https://github.com/Jacajack/liblightmodbus.git

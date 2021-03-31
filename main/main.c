@@ -21,67 +21,112 @@
 #include "leds.h"
 #include "gel/timer/timecheck.h"
 #include <stddef.h>
+#include "uart_driver.h"
+#include "adc.h"
+#include "model/model.h"
+#include "view/view.h"
+#include <stdio.h>
+#include <string.h>
+#include "lightmodbus/lightmodbus.h"
+#include "lightmodbus/slave.h"
 
+
+
+
+void update_gui(view_t view) {
+    int i = 0;
+    for (i=0; i<NUM_LEDS;i++)      
+        leds_set(i,view&(1<<i));
+}
+
+
+void manage_gui(model_t *model) {
+    view_message_t umsg;
+    view_event_t   event;
+    view_t view;
+
+    while (view_get_next_msg(model, &umsg, &event)) {
+        if (umsg.cmsg.code==VIEW_CONTROLLER_COMMAND_CODE_UPDATE_SPEED_UP && model->velocita<4) {
+            model->velocita++;
+            phasecut_set_speed(model->velocita);
+        }
+        if (umsg.cmsg.code==VIEW_CONTROLLER_COMMAND_CODE_UPDATE_SPEED_DOWN && model->velocita>0) {
+            model->velocita--;
+            phasecut_set_speed(model->velocita);
+        }
+        if (umsg.cmsg.code==VIEW_CONTROLLER_COMMAND_CODE_UPDATE_ONOFF) {
+            model->fan_on=!model->fan_on;
+            phasecut_set(model->fan_on);
+        }
+        if (view_process_msg(umsg.vmsg, model, &view)) {
+            update_gui(view);
+        }
+    }
+}
 
 
 int main(void) {
-    
+    model_t model = {0};
     unsigned long ts=0;
     unsigned long tskp=0;
     unsigned long tsin=0;
+    unsigned long ts_rx=0;
     int blink=0;
     system_init();
     Init_I2C();
     timer_init();
     LED_RUN_TRIS=0;
-    int level=0;
-    int fan=0;
-    
-    
+    ModbusSlave slave={0};
+    uint8_t coils[1] = {0};
+    slave.coils=coils;
+    slave.coilCount=8;
+    slave.address=2;
+    modbusSlaveInit(&slave);
+
     digout_init();
     digin_init();
     phasecut_init();
-    
     buttons_init();
     leds_init();
+    init_uart();
+    init_adc();
+    update_gui(view_init(&model));
     
+   int count = 0;
     
     for (;;) {
         digout_set(DIGOUT_RELE1, digin_get(DIGIN_IN1));
         digout_set(DIGOUT_RELE2, digin_get(DIGIN_IN2));
         digout_set(DIGOUT_RELE3, digin_get(DIGIN_IN3));
-        if (is_expired(ts,get_millis(), fan ? 200 : 1000)) {
+        manage_gui(&model);
+        if (is_expired(ts,get_millis(), model.fan_on ? 250 : 1000)) {
             LED_RUN=blink;
             blink=!blink;
             ts=get_millis();
         }
+        
+        if (is_expired(ts_rx,get_millis(), 10))  {
+           uint8_t buffer[300];
+           int len = uart_read_rx_buffer(buffer); 
+           slave.request.frame=buffer;
+           slave.request.length=len;
+           ModbusError err = modbusParseRequest(&slave);
+           if (err==MODBUS_OK || err==MODBUS_ERROR_EXCEPTION) {
+               uart_sync_write(slave.response.frame, slave.response.length);
+               uart_clean_rx_buffer();
+           }
+           ts_rx=get_millis();
+        }
+        
          if (is_expired(tsin,get_millis(), 2)) {
             tsin=get_millis();
             digin_take_reading();
         }
+        
         if (is_expired(tskp,get_millis(), 2)) {
             tskp=get_millis();
             keypad_update_t update = button_manage(get_millis());
-            
-            if (update.code==BUTTON_UP && update.event==KEY_CLICK && level<4) {
-                level++;
-                phasecut_set_speed(level);
-            }
-            if (update.code==BUTTON_DOWN && update.event==KEY_CLICK && level>0) {
-                level--;
-                phasecut_set_speed(level);
-            }
-            int i;
-            for (i=0; i<NUM_LEDS;i++) {
-                
-                leds_set(i,i<=level);
-                
-            }
-            
-            if (update.code==BUTTON_FAN && update.event==KEY_CLICK) {
-                fan=!fan;
-                phasecut_set(fan);
-            }
+            view_event(update);
         }
         
     }

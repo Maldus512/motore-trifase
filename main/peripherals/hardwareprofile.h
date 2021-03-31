@@ -54,7 +54,13 @@
 #define PWM2_LAT LATBbits.LATB15
 #define PWM3_TRIS TRISBbits.TRISB14
 #define PWM3_LAT LATBbits.LATB14
+#define DIR_TRIS TRISCbits.TRISC7
+#define DIR_LAT LATCbits.LATC7
 
+#define  UART_RX_TRIS TRISCbits.TRISC8
+#define  UART_TX_TRIS TRISCbits.TRISC6
+#define  ADC_CHANNEL 14
+#define ADC_TRIS TRISEbits.TRISE14
 
 
 

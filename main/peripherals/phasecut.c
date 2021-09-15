@@ -15,7 +15,7 @@
 
 
 //interrupt sfasato di 2.8 ms circa
-static int percentages[5]   = {50,51,52,54,100};
+static int percentages[5]   = {35,36,37,38,100};
 static int speed_index = 0;
 static int onoff       = 0;
 

@@ -8,25 +8,45 @@
         <logicalFolder name="liblightmodbus"
                        displayName="liblightmodbus"
                        projectFiles="true">
+          <logicalFolder name=".github" displayName=".github" projectFiles="true">
+            <logicalFolder name="workflows" displayName="workflows" projectFiles="true">
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="doc" displayName="doc" projectFiles="true">
+            <logicalFolder name="doxygen-awesome-css"
+                           displayName="doxygen-awesome-css"
+                           projectFiles="true">
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="examples" displayName="examples" projectFiles="true">
+            <logicalFolder name="avrslave" displayName="avrslave" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="cpp" displayName="cpp" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="integration" displayName="integration" projectFiles="true">
+              <itemPath>components/liblightmodbus/examples/integration/modbus.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="linuxmaster" displayName="linuxmaster" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="userfun" displayName="userfun" projectFiles="true">
+            </logicalFolder>
+          </logicalFolder>
           <logicalFolder name="include" displayName="include" projectFiles="true">
             <logicalFolder name="lightmodbus" displayName="lightmodbus" projectFiles="true">
-              <logicalFolder name="addons" displayName="addons" projectFiles="true">
-                <itemPath>components/liblightmodbus/include/lightmodbus/addons/examine.h</itemPath>
-              </logicalFolder>
-              <logicalFolder name="master" displayName="master" projectFiles="true">
-                <itemPath>components/liblightmodbus/include/lightmodbus/master/mbcoils.h</itemPath>
-                <itemPath>components/liblightmodbus/include/lightmodbus/master/mbregs.h</itemPath>
-                <itemPath>components/liblightmodbus/include/lightmodbus/master/mpcoils.h</itemPath>
-                <itemPath>components/liblightmodbus/include/lightmodbus/master/mpregs.h</itemPath>
-              </logicalFolder>
-              <logicalFolder name="slave" displayName="slave" projectFiles="true">
-                <itemPath>components/liblightmodbus/include/lightmodbus/slave/scoils.h</itemPath>
-                <itemPath>components/liblightmodbus/include/lightmodbus/slave/sregs.h</itemPath>
-              </logicalFolder>
+              <itemPath>components/liblightmodbus/include/lightmodbus/base.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/base.impl.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/debug.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/debug.impl.h</itemPath>
               <itemPath>components/liblightmodbus/include/lightmodbus/lightmodbus.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/lightmodbus.hpp</itemPath>
               <itemPath>components/liblightmodbus/include/lightmodbus/master.h</itemPath>
-              <itemPath>components/liblightmodbus/include/lightmodbus/parser.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/master.impl.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/master_func.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/master_func.impl.h</itemPath>
               <itemPath>components/liblightmodbus/include/lightmodbus/slave.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/slave.impl.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/slave_func.h</itemPath>
+              <itemPath>components/liblightmodbus/include/lightmodbus/slave_func.impl.h</itemPath>
             </logicalFolder>
           </logicalFolder>
         </logicalFolder>
@@ -35,6 +55,9 @@
         <logicalFolder name="config" displayName="config" projectFiles="true">
           <itemPath>main/config/gel_conf.h</itemPath>
           <itemPath>main/config/libconf.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="controller" displayName="controller" projectFiles="true">
+          <itemPath>main/controller/modbus_server.h</itemPath>
         </logicalFolder>
         <logicalFolder name="model" displayName="model" projectFiles="true">
           <itemPath>main/model/model.h</itemPath>
@@ -90,30 +113,14 @@
             <itemPath>components/I2C/i2c_ports/PIC/i2c_driver.c</itemPath>
           </logicalFolder>
         </logicalFolder>
-        <logicalFolder name="liblightmodbus"
-                       displayName="liblightmodbus"
-                       projectFiles="true">
-          <logicalFolder name="src" displayName="src" projectFiles="true">
-            <logicalFolder name="addons" displayName="addons" projectFiles="true">
-              <itemPath>components/liblightmodbus/src/addons/examine.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="master" displayName="master" projectFiles="true">
-              <itemPath>components/liblightmodbus/src/master/mbcoils.c</itemPath>
-              <itemPath>components/liblightmodbus/src/master/mbregs.c</itemPath>
-              <itemPath>components/liblightmodbus/src/master/mpcoils.c</itemPath>
-              <itemPath>components/liblightmodbus/src/master/mpregs.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="slave" displayName="slave" projectFiles="true">
-              <itemPath>components/liblightmodbus/src/slave/scoils.c</itemPath>
-              <itemPath>components/liblightmodbus/src/slave/sregs.c</itemPath>
-            </logicalFolder>
-            <itemPath>components/liblightmodbus/src/lightmodbus.c</itemPath>
-            <itemPath>components/liblightmodbus/src/master.c</itemPath>
-            <itemPath>components/liblightmodbus/src/slave.c</itemPath>
-          </logicalFolder>
-        </logicalFolder>
+        <itemPath>components/lightmodbus-impl.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Main" projectFiles="true">
+        <logicalFolder name="controller" displayName="controller" projectFiles="true">
+          <itemPath>main/controller/modbus_server.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="model" displayName="model" projectFiles="true">
+        </logicalFolder>
         <logicalFolder name="f1" displayName="Peripherals" projectFiles="true">
           <itemPath>main/peripherals/system.c</itemPath>
           <itemPath>main/peripherals/timer.c</itemPath>
@@ -160,7 +167,7 @@
         <targetDevice>PIC24EP512GP206</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>ICD3PlatformTool</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>1.36</languageToolchainVersion>
         <platform>3</platform>
@@ -168,6 +175,8 @@
       <packs>
         <pack name="dsPIC33E-GM-GP-MC-GU-MU_DFP" vendor="Microchip" version="1.3.85"/>
       </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
       <compileType>
         <linkerTool>
           <linkerLibItems>
@@ -185,6 +194,7 @@
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeUseCleanTarget>false</makeUseCleanTarget>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
@@ -228,10 +238,11 @@
         <property key="optimization-level" value="0"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
-        <property key="preprocessor-macros" value=""/>
+        <property key="preprocessor-macros" value="GEL_IGNORE_TIME_TYPECHECK"/>
         <property key="scalar-model" value="default"/>
         <property key="use-cci" value="false"/>
         <property key="use-iar" value="false"/>
+        <appendMe value="-std=c99"/>
       </C30>
       <C30-AR>
         <property key="additional-options-chop-files" value="false"/>

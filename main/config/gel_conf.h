@@ -9,6 +9,7 @@
  */
 #define PMAN_NAVIGATION_DEPTH 4
 #define PMAN_VIEW_NULL 0
+#define PMAN_DATA_NULL NULL
 
 typedef view_message_t pman_message_t;
 
